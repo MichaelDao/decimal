@@ -495,3 +495,20 @@ func propagateNan(dp, ep *decParts) *Decimal64 {
 	}
 	return ep.dec
 }
+
+// class takes one operand and provides the class the decimal is in
+func (d Decimal64) Class() string {
+	if d.isZero() {
+		return "+Zero"
+	}
+	if d.IsSNaN() {
+		return "sNaN"
+	}
+	if d.IsNaN() {
+		return "NaN"
+	}
+	if d.IsInf() {
+		return "+Infinity"
+	}
+	return "lol"
+}
