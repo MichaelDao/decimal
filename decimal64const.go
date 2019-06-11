@@ -1,5 +1,24 @@
 package decimal
 
+const (
+	decDigits64 = 16
+	expBits64   = 10
+	expRange64  = 3 << (expBits64 - 2)
+
+	symmMaxExp64 = expRange64 / 2
+	symmMinExp64 = 1 - symmMaxExp64
+
+	maxExp64 = symmMaxExp64 - (decDigits64 - 1)
+	minExp64 = symmMinExp64 - (decDigits64 - 1)
+
+	decimal64Base = 1000 * 1000 * 1000 * 1000 * 1000
+
+	// maxSig is the maximum significand possible that fits in 16 decimal places.
+	maxSig    = 10*decimal64Base - 1
+	expOffset = 398
+	expMax    = 369
+)
+
 // Zero64 represents 0 as a Decimal64.
 var Zero64 = newFromParts(0, 0, 0)
 
@@ -33,14 +52,14 @@ var E64 = newFromParts(0, -15, 2718281828459045)
 var neg64 uint64 = 0x80 << 56
 var inf64 uint64 = 0x78 << 56
 
-// 1E15
-const decimal64Base = 1000 * 1000 * 1000 * 1000 * 1000
+// // 1E15
+// const decimal64Base = 1000 * 1000 * 1000 * 1000 * 1000
 
-// maxSig is the maximum significand possible that fits in 16 decimal places.
-const maxSig = 10*decimal64Base - 1
+// // maxSig is the maximum significand possible that fits in 16 decimal places.
+// const maxSig = 10*decimal64Base - 1
 
-const expOffset = 398
-const expMax = 369
+// const expOffset = 398
+// const expMax = 369
 
 // Max64  is the maximum number representable with a Decimal64.
 var Max64 = newFromParts(0, expMax, maxSig)
